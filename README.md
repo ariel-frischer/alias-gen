@@ -39,13 +39,13 @@ python aliaser.py -s zsh -f ./.custom_zsh_history
 ## Misc
 
 I recommend using this script along with other shell plugins that help you remember
-your alias or abbreviation. One example for fish shell is https://github.com/gazorby/fish-abbreviation-tips
+your alias or abbreviation. One example for fish shell is [fish-abbreviation-tips](https://github.com/gazorby/fish-abbreviation-tips)
 
 ## Buy me a coffee
 
 If you found this project helpful, consider buying me a coffee to show your support. Every bit helps to continue maintaining and improving this project.
 
-buy me a coffee
+<a href="https://www.buymeacoffee.com/arielfrischer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 ## Author
 
