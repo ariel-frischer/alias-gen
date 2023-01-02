@@ -7,23 +7,23 @@ Description: Generate aliases for your shell.
 
 import argparse
 import itertools
-import logging
 import os
 import re
 import subprocess
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
-from arg_parser import parse_args, find_file
+from arg_parser import find_file, parse_args
+from constants import SUPPORTED_SHELLS
+from logger import debug, init_logger
 
-log = logging.getLogger("main")
-debug = log.debug
 ResType = List[Tuple[str, int, str, str]]
 
 comment = """
 TODO:
 Fix comands that start with ./script.sh cannot have alias of . or /
 Add arg to allow alias for fish over abbr.
+Put more debug statements in stategic places
 
 Move this script into its own repo
 Let ChatGPT write scripts for this
@@ -38,7 +38,6 @@ Write an article about this and how ChatGPT helped write boilerplate.
 Publish my own website with that article.
 """
 
-supported_shells = ["bash", "zsh", "fish"]
 easy_chars = "asdfghjklqwertyuiopzxcvbnm"  # easy to reach on keyboard
 # Not using this right now but holds potential to pull more types
 cmd_gets_cmds = "printf '%s\n' ${PATH//:/\/* } | xargs -n 1 basename"
@@ -59,8 +58,6 @@ def main(args: argparse.Namespace):
     else:
         show_alias_chart(results)
         write_to_file_prompt(results, shell, args.use_min_alias)
-
-
 
 
 def print_results(results: ResType, shell: str, use_alias: bool):
@@ -106,8 +103,6 @@ def write_to_file_prompt(results: ResType, shell: str, use_min_alias: bool) -> N
         print(f"File {file_name} written successfully!")
     else:
         print("No file written")
-
-
 
 
 def get_all_commands(hist_path: Path, shell: str):
@@ -234,10 +229,11 @@ invalid_commands = [
     "let",
 ]
 
+
 def get_system_commands(shell: str) -> Set[str]:
-    if shell not in supported_shells:
+    if shell not in SUPPORTED_SHELLS:
         raise ValueError(
-            f"{shell} is not a supported shell. Supported shells: {supported_shells}"
+            f"{shell} is not a supported shell. Supported shells: {SUPPORTED_SHELLS}"
         )
 
     compgen_command = "bash -c 'compgen -c' | sort | uniq"
@@ -305,14 +301,6 @@ def generate_easy_alias(cmd: str, used_easy_aliases: Set[str]) -> str:
                 return alias
 
     return cmd
-
-
-def init_logger(args: argparse.Namespace):
-
-    if args.debug:
-        logging.basicConfig(format="%(levelname)s:\t%(message)s", level=logging.DEBUG)
-    else:
-        logging.basicConfig(level=logging.INFO)
 
 
 if __name__ == "__main__":

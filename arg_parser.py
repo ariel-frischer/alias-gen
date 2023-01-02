@@ -1,14 +1,11 @@
 import argparse
-import logging
 import os
 from argparse import RawTextHelpFormatter
 from pathlib import Path
-from typing import Union
 
-default_shell = "zsh"
-supported_shells = ["bash", "zsh", "fish"]
-log = logging.getLogger("main")
-debug = log.debug
+from constants import DEFAULT_SHELL, SUPPORTED_SHELLS
+from file_utils import find_file
+from logger import debug
 
 app_desc = """
 This script will create bash/zsh/fish shell aliases automatically. You can 
@@ -23,7 +20,7 @@ command. NOTE: Two character commands or less are not processed.\n
 By default, fish shell generates abbr (abbreviations) rather than aliases.\n
 Full Help Menu:\n
 python aliaser.py -h
-Example usage:\n
+Example usage with top 40 aliases:\n
 python aliaser.py -n 40\n
 With stdout and min_alias:\n
 python aliaser.py --stdout --use_min_alias
@@ -45,7 +42,7 @@ def parse_args():
         "-d",
         "--debug",
         action="store_true",
-        help="enable debug output",
+        help="Enable debug output.",
     )
 
     parser.add_argument(
@@ -61,7 +58,7 @@ def parse_args():
         "-s",
         type=validate_shell_args,
         default="",
-        help=f"Shell to make aliases for. Supported shells are: {supported_shells}.",
+        help=f"Shell to make aliases for. Supported shells are: {SUPPORTED_SHELLS}.",
     )
     parser.add_argument("--stdout", action="store_true", help="Write output to stdout")
     parser.add_argument(
@@ -83,30 +80,17 @@ def validate_file_exists(file_path: str) -> Path:
 def validate_shell_args(shell: str) -> str:
     if not shell:
         shell = get_shell()
-        if shell not in supported_shells:
+        if shell not in SUPPORTED_SHELLS:
             print(
                 f"This shell: {shell} is not supported, falling back to zsh as default."
             )
-            return default_shell
-    if shell not in supported_shells:
+            return DEFAULT_SHELL
+    if shell not in SUPPORTED_SHELLS:
         raise argparse.ArgumentTypeError(
             f"Given shell: {shell} is not supported. \n\
-        Supported shells are: {supported_shells}."
+        Supported shells are: {SUPPORTED_SHELLS}."
         )
     return shell
-
-
-def find_file(file_path: Union[str, Path]) -> Path:
-    path = Path(file_path)
-    if path.exists() and os.path.isfile(path):
-        return path.absolute()
-
-    home_dir = Path.home()
-    home_file_path = home_dir / file_path
-    if home_file_path.exists() and os.path.isfile(home_file_path):
-        return home_file_path.absolute()
-
-    return home_dir.absolute()
 
 
 def get_shell():
