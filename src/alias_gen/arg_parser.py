@@ -3,9 +3,9 @@ import os
 from argparse import RawTextHelpFormatter
 from pathlib import Path
 
-from constants import DEFAULT_SHELL, SUPPORTED_SHELLS
-from file_utils import find_file
-from logger import debug
+from .constants import DEFAULT_SHELL, SUPPORTED_SHELLS
+from .file_utils import find_file
+from .logger import debug
 
 app_desc = """
 This script will create bash/zsh/fish shell aliases automatically. You can 

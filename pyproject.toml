@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="alias-gen"
+version="0.1"
+authors=[{name="Ariel Frischer", email="arielfrischer@gmail.com"}]
+description="Generate bash/zsh/fish shell aliases automatically."
+requires-python=">=3.6"
+classifiers=[
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords=[
+    "alias",
+    "bash",
+    "zsh",
+    "fish",
+    "shell",
+    "cli",
+    "command-line",
+    "command",
+    "completion",
+    "abbr",
+    "generate",
+    "terminal",
+]
+
+[project.urls]
+"Homepage" = "https://gitlab.com/ariel-frischer/alias-gen"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+pythonpath = "src"
+

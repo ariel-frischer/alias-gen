@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from typing import Set, Union
 
-from logger import debug
+from .logger import debug
 
 
 def find_file(file_path: Union[str, Path]) -> Path:

@@ -1,5 +1,6 @@
-import logging
 import argparse
+import logging
+
 
 def init_logger(args: argparse.Namespace):
 
@@ -8,5 +9,10 @@ def init_logger(args: argparse.Namespace):
     else:
         logging.basicConfig(level=logging.INFO)
 
+
 log = logging.getLogger("main")
 debug = log.debug
+
+# def debug():
+#     log = logging.getLogger("main")
+#     return log.debug
