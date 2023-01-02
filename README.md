@@ -6,6 +6,22 @@ Two types of aliases are suggested, the default alias matches all characters in 
 
 By default, fish shell generates abbr (abbreviations) rather than aliases.
 
+## Getting Started
+
+Clone this repo:
+
+```
+git clone <https://this-repo-url>
+```
+
+CD into the repo directory:
+
+```
+cd alias-gen
+```
+
+## Running the script
+
 Full Help Menu:
 
 ```
