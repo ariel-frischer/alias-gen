@@ -20,25 +20,6 @@ from logger import debug, init_logger
 
 ResType = List[Tuple[str, int, str, str]]
 
-comment = """
-TODO:
-Fix comands that start with ./script.sh cannot have alias of . or /
-Add arg to allow alias for fish over abbr.
-Put more debug statements in stategic places
-
-Move this script into its own repo
-Let ChatGPT write scripts for this
-Package everything with poetry
-Add an MIT license
-Push to my private gitlab
-Create an executable! - pipeline that builds it would be nice.
-Create some buy me coffee or donate link stuff on my github / gitlab
-Publish to public gitlab
-Publish to public github
-Write an article about this and how ChatGPT helped write boilerplate.
-Publish my own website with that article.
-"""
-
 easy_chars = "asdfghjklqwertyuiopzxcvbnm"  # easy to reach on keyboard
 # Not using this right now but holds potential to pull more types
 cmd_gets_cmds = "printf '%s\n' ${PATH//:/\/* } | xargs -n 1 basename"

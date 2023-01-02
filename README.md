@@ -63,6 +63,21 @@ If you found this project helpful, consider buying me a coffee to show your supp
 
 <a href="https://www.buymeacoffee.com/arielfrischer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
+## TODO
+- [ ] Fix comands that start with ./script.sh cannot have alias of . or /
+- [ ] Add arg to allow alias for fish over abbr.
+- [ ] Put more debug statements in stategic places
+
+- [x] Move this script into its own repo
+- [ ] Package everything with poetry
+- [x] Add an MIT license
+Create an executable! - pipeline that builds it would be nice.
+Publish to public gitlab
+Publish to public github
+Write an article about this and how ChatGPT helped write boilerplate.
+Publish my own website with that article.
+Post my article and repo to some subreddits
+
 ## Author
 
 - **[Ariel Frischer Gitlab](https://gitlab.com/ariel-frischer)**
