@@ -18,12 +18,6 @@ def find_file(file_path: Union[str, Path]) -> Path:
     return home_dir.absolute()
 
 
-def write_commands_to_file(commands: Set[str], filename: str):
-    with open(filename, "w") as f:
-        for command in sorted(commands):
-            f.write(command + "\n")
-
-
 def get_file_contents(file_path: Path) -> str:
     file_path = find_file(file_path)
     if os.path.exists(file_path) and os.path.isfile(file_path):

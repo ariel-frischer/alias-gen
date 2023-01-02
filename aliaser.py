@@ -14,9 +14,9 @@ from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
 from arg_parser import parse_args
-from constants import SUPPORTED_SHELLS
+from constants import INVALID_CMD_CHAR_REGEX, INVALID_COMMANDS
+from file_utils import get_file_contents, get_history_file_path
 from logger import debug, init_logger
-from file_utils import get_file_contents, write_commands_to_file, get_history_file_path, find_file
 
 ResType = List[Tuple[str, int, str, str]]
 
@@ -185,33 +185,7 @@ def get_all_system_commands(commands_txt: str) -> Set[str]:
     return set(commands)
 
 
-invalid_cmd_char_regex = r"^[^a-zA-Z]+$"
-invalid_commands = [
-    "*",
-    "!",
-    ".",
-    ":",
-    "[",
-    "]",
-    "]]",
-    "[[",
-    "{",
-    "}",
-    "elif",
-    "else",
-    "bin",
-    "if",
-    "in",
-    "let",
-]
-
-
 def get_system_commands(shell: str) -> Set[str]:
-    if shell not in SUPPORTED_SHELLS:
-        raise ValueError(
-            f"{shell} is not a supported shell. Supported shells: {SUPPORTED_SHELLS}"
-        )
-
     compgen_command = "bash -c 'compgen -c' | sort | uniq"
     if shell == "bash":
         command = compgen_command
@@ -229,8 +203,8 @@ def get_system_commands(shell: str) -> Set[str]:
     )
     commands = set(output.split("\n"))
 
-    filtered_commands = [c for c in commands if c not in invalid_commands]
-    filtered_commands = [c for c in commands if not re.match(invalid_cmd_char_regex, c)]
+    filtered_commands = [c for c in commands if c not in INVALID_COMMANDS]
+    filtered_commands = [c for c in commands if not re.match(INVALID_CMD_CHAR_REGEX, c)]
     commands = set(filtered_commands)
     debug(f"total sys commands: {len(commands)}")
 
