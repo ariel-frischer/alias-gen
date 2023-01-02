@@ -13,9 +13,10 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
-from arg_parser import find_file, parse_args
+from arg_parser import parse_args
 from constants import SUPPORTED_SHELLS
 from logger import debug, init_logger
+from file_utils import get_file_contents, write_commands_to_file, get_history_file_path, find_file
 
 ResType = List[Tuple[str, int, str, str]]
 
@@ -133,18 +134,6 @@ def get_history_commands(shell: str, hist_path: Path) -> List[str]:
     return history_commands
 
 
-def get_history_file_path(shell: str) -> Path:
-    home_dir = Path.home()
-    if shell == "fish":
-        return home_dir / ".local/share/fish/fish_history"
-    elif shell == "bash":
-        return home_dir / ".bash_history"
-    elif shell == "zsh":
-        return home_dir / ".zsh_history"
-    else:
-        return Path.home()
-
-
 def gen_aliases(
     max_suggestions: int, sorted_commands: List[Tuple[str, int]], used_aliases: Set[str]
 ):
@@ -168,19 +157,6 @@ def show_alias_chart(results: List[Tuple[str, int, str, str]]):
     for cmd, freq, alias, minimal_alias in results:
         f_cmd = cmd[:15] if len(cmd) <= 15 else (cmd[:15] + "...")
         print(f"{f_cmd:<20}{freq:<10}{alias:<10}{minimal_alias:<10}")
-
-
-def get_file_contents(file_path: Path) -> str:
-    file_path = find_file(file_path)
-    if os.path.exists(file_path) and os.path.isfile(file_path):
-        with open(file_path, "r") as f:
-            file_contents = f.read()
-        return file_contents
-    else:
-        debug(f"There was an issue reading file contents of path: {file_path}.")
-        pass
-        # raise argparse.ArgumentTypeError(f"{file_path} is not a valid file.")
-    return ""
 
 
 def extract_commands(file_contents: str, shell: str) -> List[str]:
@@ -259,12 +235,6 @@ def get_system_commands(shell: str) -> Set[str]:
     debug(f"total sys commands: {len(commands)}")
 
     return commands
-
-
-def write_commands_to_file(commands: Set[str], filename: str):
-    with open(filename, "w") as f:
-        for command in sorted(commands):
-            f.write(command + "\n")
 
 
 def generate_alias(cmd: str, used_aliases: Set[str], used_easy_aliases: Set[str]):
