@@ -83,13 +83,14 @@ If you found this project helpful, consider buying me a coffee to show your supp
 - [ ] Put more debug statements in stategic places
 - [ ] Add arg to allow alias for fish over abbr.
 
-- [ ] Package everything with poetry
-- [ ] Create an executable! - pipeline that builds it would be nice.
+- [ ] Add gitlab pipelines for quality of code / linting.
+- [ ] Add pipeline for vulnerabilities/secrets.
+- [ ] Package everything with poetry.
 - [ ] Publish to public gitlab
 - [ ] Publish to public github
 - [ ] Write an article about this and how ChatGPT helped write boilerplate.
 - [ ] Publish my own website with that article.
-- [ ] Post my article and repo to some subreddits
+- [x] Test out publish + version bumping using twine + setuptools
 - [x] Move this script into its own repo
 - [x] Add an MIT license
 
