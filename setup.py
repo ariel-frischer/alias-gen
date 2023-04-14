@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.1",  # Replace with your package version
     author="Ariel Frischer",  # Replace with your name
     author_email="arielfrischer@gmail.com",  # Replace with your email
-    description="Generate bash/zsh/fish shell aliases automatically.",
+    description="Generate bash, zsh, or fish shell aliases automatically.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://gitlab.com/ariel-frischer/alias-gen",  # Replace with your package URL

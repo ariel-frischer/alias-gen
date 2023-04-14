@@ -45,7 +45,7 @@ def main(args: argparse.Namespace):
 def print_results(results: ResType, shell: str, use_alias: bool):
     for cmd, freq, alias, minimal_alias in results:
         if shell == "fish":
-            print(f"abbr {cmd} '{alias if use_alias else minimal_alias}'")
+            print(f"abbr {alias if use_alias else minimal_alias} '{cmd}'")
         else:
             print(f'alias {alias if use_alias else minimal_alias}="{cmd}"')
 
@@ -53,7 +53,7 @@ def print_results(results: ResType, shell: str, use_alias: bool):
 def write_results(f, results: ResType, shell: str, use_alias: bool):
     for cmd, freq, alias, minimal_alias in results:
         if shell == "fish":
-            f.write(f"abbr {cmd} '{alias if use_alias else minimal_alias}'\n")
+            f.write(f"abbr {alias if use_alias else minimal_alias} '{cmd}'\n")
         else:
             f.write(f'alias {alias if use_alias else minimal_alias}="{cmd}"\n')
 
@@ -96,7 +96,9 @@ def get_all_commands(hist_path: Path, shell: str):
     sorted_commands = sorted(frequency.items(), key=lambda x: x[1], reverse=True)
     debug(f"Sorted History commands: {sorted_commands[:10]}")
 
-    sys_commands = get_system_commands(shell)
+    bash_commands = get_bash_commands(shell)
+    shell_commands = get_shell_commands(shell)
+    sys_commands = bash_commands | shell_commands
     debug(f"Found {len(sys_commands)} system commands")
 
     used_aliases = set([tup[0] for tup in sorted_commands]) | sys_commands
@@ -166,28 +168,54 @@ def get_all_system_commands(commands_txt: str) -> Set[str]:
     return set(commands)
 
 
-def get_system_commands(shell: str) -> Set[str]:
-    compgen_command = "bash -c 'compgen -c' | sort | uniq"
-    if shell == "bash":
-        command = compgen_command
-    elif shell == "zsh":
-        command = compgen_command
-        # command = "zsh -c 'compgen -c'"
-    elif shell == "fish":
-        command = compgen_command
-        # command = "fish -c 'complete -C'"
-    else:
-        raise ValueError(f"Unsupported shell: {shell}")
+def get_bash_commands(shell: str) -> Set[str]:
+    compgen_command = "bash -c 'compgen -c'"
+    command = compgen_command
 
+    debug(f"Running bash command: {command}")
     output = (
         subprocess.run(command, shell=True, capture_output=True).stdout.decode().strip()
     )
+    # debug(f"Output: {output}")
     commands = set(output.split("\n"))
 
-    filtered_commands = [c for c in commands if c not in INVALID_COMMANDS]
-    filtered_commands = [c for c in commands if not re.match(INVALID_CMD_CHAR_REGEX, c)]
+    filtered_commands = [c for c in commands if c not in INVALID_COMMANDS and c]
     commands = set(filtered_commands)
-    debug(f"total sys commands: {len(commands)}")
+    debug(f"total bash commands: {len(commands)}")
+
+    return commands
+
+
+def get_shell_commands(shell: str) -> Set[str]:
+    command = ""
+    if shell == "bash":
+        return set()
+    elif shell == "zsh":
+        return set()
+    elif shell == "fish":
+        command = "fish -c 'complete -C \"\"'"
+    else:
+        debug(f"Unsupported shell: {shell}")
+
+    debug(f"Running shell command: {command}")
+    output = (
+        subprocess.run(command, shell=True, capture_output=True).stdout.decode().strip()
+    )
+
+    if shell == "fish":
+        # Strip out all lines that contain these patterns
+        remove_rx = r"^.*(Abbreviation: .*$)|^.*(alias .*$)|^.*(directory$)"
+        output = re.sub(remove_rx, "", output, flags=re.MULTILINE)
+        rx = r"^([^ \t]+).*"
+        output = re.sub(rx, r"\1", output, flags=re.MULTILINE)
+
+    commands = set(output.split("\n"))
+
+    filtered_commands = [c for c in commands if c not in INVALID_COMMANDS and c]
+    commands = set(filtered_commands)
+
+    debug(f"total shell commands: {len(commands)}")
+    # debug(f"shell commands: {commands}")
 
     return commands
 

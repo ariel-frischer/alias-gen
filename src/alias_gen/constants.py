@@ -3,10 +3,14 @@ SUPPORTED_SHELLS = ["bash", "zsh", "fish"]
 INVALID_CMD_CHAR_REGEX = r"^[^a-zA-Z]+$"
 
 INVALID_COMMANDS = [
+    " ",
+    "\t",
     "*",
     "!",
     ".",
     ":",
+    "_",
+    "-",
     "[",
     "]",
     "]]",
