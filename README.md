@@ -78,6 +78,9 @@ If you found this project helpful, consider buying me a coffee to show your supp
 
 ## TODO
 
+- [ ] Have python alias-gen module run cli commands easier, rather then having
+      to run the .py script from ./src/alias_gen/aliaser.py. It should be
+      simpler, something like: `python -m alias-gen mycommand`
 - [ ] Fix comands that start with ./script.sh cannot have alias of . or / or
       ~ or \_.
 - [ ] Put more debug statements in stategic places
@@ -93,6 +96,24 @@ If you found this project helpful, consider buying me a coffee to show your supp
 - [x] Test out publish + version bumping using twine + setuptools
 - [x] Move this script into its own repo
 - [x] Add an MIT license
+
+## Dev Notes
+
+https://towardsdatascience.com/how-to-publish-a-python-package-to-pypi-7be9dd5d6dcd
+
+# To update our build version:
+
+## Update version in setup.py AND pyproject.toml
+
+```bash
+python setup.py sdist bdist_wheel
+```
+
+## Upload to pypi
+
+```bash
+python -m twine upload --repository testpypi dist/\* --skip-existing
+```
 
 ## Author
 
