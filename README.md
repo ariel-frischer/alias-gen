@@ -14,10 +14,10 @@ Clone this repo:
 git clone <https://this-repo-url>
 ```
 
-CD into the repo directory:
+CD into the python source directory:
 
 ```
-cd alias-gen
+cd src/alias_gen
 ```
 
 ## Running the script
