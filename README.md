@@ -1,10 +1,21 @@
 # ALIAS-GEN
 
-This script will create bash/zsh/fish shell aliases automatically. You can generate a new alias file by following the prompts, or use --stdout to print results directly in your terminal.
+Shell aliases are shortcuts or abbreviations for commands that are used in a Unix/Linux shell. They can save you time if you have very long or complex commands that you frequently use. ALIAS-GEN is a script that will create bash/zsh/fish shell aliases automatically to simplify your command-line tasks.
 
-Two types of aliases are suggested, the default alias matches all characters in the command while min_alias aims to minimize the length of characters. Additionally, min_alias does not necessarily match all characters in the command. The freq (frequency) column shows how often this command was used. For now, this script only generates aliases for the first word in a command. NOTE: Two character commands or less are not processed.
+This script will create bash/zsh/fish shell aliases automatically. You can generate a new alias file by following the prompts, or use the `--stdout` option to print results directly in your terminal.
+
+Two types of aliases are suggested, the default algorithm matches all characters incrementally for each command, while the `--use_min_alias`algorithm aims to minimize the total length of characters per command. 
+Additionally, `--use_min_alias` does not necessarily match all characters in the command. 
+
+The freq (frequency) column shows how often each command was used. For now, this script only generates aliases for the first word in a command. 
+NOTE: Two character commands or less are not processed.
 
 By default, fish shell generates abbr (abbreviations) rather than aliases.
+
+## Requirements
+
+- Python 3.6 or higher.
+- No dependences required for installation.
 
 ## Getting Started
 
@@ -28,7 +39,7 @@ Full Help Menu:
 python aliaser.py -h
 ```
 
-Example usage with top 40 aliases:
+Example usage to generate the top 40 aliases:
 
 ```
 python aliaser.py -n 40
@@ -40,16 +51,16 @@ With stdout and min_alias:
 python aliaser.py --stdout --use_min_alias
 ```
 
-Generate for fish shell:
+The `-s` argument specifies the shell type. In this example, `fish` shell is used.
 
 ```
 python aliaser.py -s fish
 ```
 
-Generate for zsh with custom history file path:
+The `-f` argument allows you to specify a custom history file path.
 
 ```
-python aliaser.py -s zsh -f ./.custom_zsh_history
+python aliaser.py -s zsh -f ~/.custom_zsh_history
 ```
 
 ## How does it work?
@@ -68,7 +79,7 @@ defined as QUERTY layout middle row, top row, then bottom row.
 ## Misc
 
 I recommend using this script along with other shell plugins that help you remember
-your alias or abbreviation. One example for fish shell is [fish-abbreviation-tips](https://github.com/gazorby/fish-abbreviation-tips)
+your alias or abbreviation. One example for fish shell is [fish-abbreviation-tips](https://github.com/gazorby/fish-abbreviation-tips).
 
 ## Buy me a coffee
 
@@ -76,44 +87,6 @@ If you found this project helpful, consider buying me a coffee to show your supp
 
 <a href="https://www.buymeacoffee.com/arielfrischer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
-## TODO
-
-- [ ] Have python alias-gen module run cli commands easier, rather then having
-      to run the .py script from ./src/alias_gen/aliaser.py. It should be
-      simpler, something like: `python -m alias-gen mycommand`
-- [ ] Fix comands that start with ./script.sh cannot have alias of . or / or
-      ~ or \_.
-- [ ] Put more debug statements in stategic places
-- [ ] Add arg to allow alias for fish over abbr.
-
-- [ ] Add gitlab pipelines for quality of code / linting.
-- [ ] Add pipeline for vulnerabilities/secrets.
-- [ ] Package everything with poetry.
-- [ ] Publish to public gitlab
-- [ ] Publish to public github
-- [ ] Write an article about this and how ChatGPT helped write boilerplate.
-- [ ] Publish my own website with that article.
-- [x] Test out publish + version bumping using twine + setuptools
-- [x] Move this script into its own repo
-- [x] Add an MIT license
-
-## Dev Notes
-
-https://towardsdatascience.com/how-to-publish-a-python-package-to-pypi-7be9dd5d6dcd
-
-# To update our build version:
-
-## Update version in setup.py AND pyproject.toml
-
-```bash
-python setup.py sdist bdist_wheel
-```
-
-## Upload to pypi
-
-```bash
-python -m twine upload --repository testpypi dist/\* --skip-existing
-```
 
 ## Author
 
