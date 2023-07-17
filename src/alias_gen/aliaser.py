@@ -26,7 +26,6 @@ cmd_gets_cmds = "printf '%s\n' ${PATH//:/\/* } | xargs -n 1 basename"
 
 
 def main(args: argparse.Namespace):
-
     shell = args.s
     hist_path = args.f
     max_suggestions = args.n
@@ -215,7 +214,6 @@ def get_shell_commands(shell: str) -> Set[str]:
     commands = set(filtered_commands)
 
     debug(f"total shell commands: {len(commands)}")
-    # debug(f"shell commands: {commands}")
 
     return commands
 

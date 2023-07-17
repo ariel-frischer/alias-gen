@@ -88,7 +88,3 @@ If you found this project helpful, consider buying me a coffee to show your supp
 <a href="https://www.buymeacoffee.com/arielfrischer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 
-## Author
-
-- **[Ariel Frischer Gitlab](https://gitlab.com/ariel-frischer)**
-- **[Ariel Frischer Github](https://github.com/ariel-frischer)**

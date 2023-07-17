@@ -1,8 +1,9 @@
 ## TODO
 
-- [ ] Have python alias-gen module run cli commands easier, rather then having
+- [ ] Have python alias-gen module run cli commands better, rather then having
       to run the .py script from ./src/alias_gen/aliaser.py. It should be
-      simpler, something like: `python -m alias-gen mycommand`
+      simpler, something like: `python -m alias-gen mycommand`-> better yet it
+      should install directly as a bin executable. -> `aliaser mycommand`.
 - [ ] Fix comands that start with ./script.sh cannot have alias of . or / or
       ~ or \_.
 - [ ] Put more debug statements in stategic places
@@ -37,3 +38,7 @@ python setup.py sdist bdist_wheel
 python -m twine upload --repository testpypi dist/\* --skip-existing
 ```
 
+## Author
+
+- **[Ariel Frischer Gitlab](https://gitlab.com/ariel-frischer)**
+- **[Ariel Frischer Github](https://github.com/ariel-frischer)**
