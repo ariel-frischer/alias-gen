@@ -4,10 +4,38 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name="alias-gen"
-version="0.3"
+version="0.4.0"
 authors=[{name="Ariel Frischer", email="arielfrischer@gmail.com"}]
 description="Generate bash/zsh/fish shell aliases automatically."
 requires-python=">=3.6"
+readme = "README.md"
+classifiers=[
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords=[
+    "alias",
+    "bash",
+    "zsh",
+    "fish",
+    "shell",
+    "cli",
+    "command-line",
+    "command",
+    "completion",
+    "abbr",
+    "generate",
+    "terminal",
+]
+
+[tool.poetry]
+name = "alias-gen"
+license = "MIT"
+version = "0.4.0"
+description = "Generate bash/zsh/fish shell aliases automatically."
+authors=["Ariel Frischer <arielfrischer@gmail.com>"]
+maintainers=["Ariel Frischer <arielfrischer@gmail.com>"]
 readme = "README.md"
 classifiers=[
     "Programming Language :: Python :: 3",
@@ -38,7 +66,18 @@ addopts = [
 ]
 pythonpath = "src"
 
+[tool.setuptools.package-data]
+"pkgname" = ["py.typed"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.black]
 line-length = 120
 [tool.ruff]
 line-length = 120
+
+[[tool.mypy.overrides]]
+module = ["setuptools.*"]
+ignore_missing_imports = true
+

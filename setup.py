@@ -1,11 +1,12 @@
 from setuptools import find_packages, setup
+from version import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
     name="alias-gen",
-    version="0.3",
+    version=__version__,
     author="Ariel Frischer",
     author_email="arielfrischer@gmail.com",
     description="Generate bash, zsh, or fish shell aliases automatically.",
