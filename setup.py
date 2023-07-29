@@ -1,9 +1,9 @@
-import setuptools
+from setuptools import find_packages, setup
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="alias-gen",
     version="0.3",
     author="Ariel Frischer",
@@ -12,7 +12,14 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://gitlab.com/ariel-frischer/alias-gen",
-    packages=setuptools.find_packages(),
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    install_requires=[],
+    entry_points={
+        "console_scripts": [
+            "aliaser = alias_gen.aliaser:main",
+        ],
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

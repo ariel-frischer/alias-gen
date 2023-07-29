@@ -1,8 +1,9 @@
+import argparse
 import os
 from pathlib import Path
-from typing import Set, Union
+from typing import Union
 
-from logger import debug
+from .logger import debug
 
 
 def find_file(file_path: Union[str, Path]) -> Path:
@@ -21,13 +22,16 @@ def find_file(file_path: Union[str, Path]) -> Path:
 def get_file_contents(file_path: Path) -> str:
     file_path = find_file(file_path)
     if os.path.exists(file_path) and os.path.isfile(file_path):
-        with open(file_path, "r") as f:
-            file_contents = f.read()
-        return file_contents
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                file_contents = f.read()
+            return file_contents
+        except UnicodeDecodeError:
+            debug(f"There was an issue reading file contents of path: {file_path}.")
+            raise argparse.ArgumentTypeError(f"{file_path} is not a valid UTF-8")
     else:
         debug(f"There was an issue reading file contents of path: {file_path}.")
-        pass
-        # raise argparse.ArgumentTypeError(f"{file_path} is not a valid file.")
+        raise argparse.ArgumentTypeError(f"{file_path} is not a valid file.")
     return ""
 
 

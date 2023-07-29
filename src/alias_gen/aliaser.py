@@ -13,10 +13,10 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
-from arg_parser import parse_args
-from constants import INVALID_CMD_CHAR_REGEX, INVALID_COMMANDS
-from file_utils import get_file_contents, get_history_file_path
-from logger import debug, init_logger
+from .arg_parser import parse_args
+from .constants import INVALID_CMD_CHAR_REGEX, INVALID_COMMANDS
+from .file_utils import get_file_contents, get_history_file_path
+from .logger import debug, init_logger
 
 ResType = List[Tuple[str, int, str, str]]
 
@@ -25,10 +25,12 @@ easy_chars = "asdfghjklqwertyuiopzxcvbnm"  # easy to reach on keyboard
 cmd_gets_cmds = "printf '%s\n' ${PATH//:/\/* } | xargs -n 1 basename"
 
 
-def main(args: argparse.Namespace):
-    shell = args.s
-    hist_path = args.f
-    max_suggestions = args.n
+def main():
+    args = parse_args()
+    init_logger(args)
+    debug(f"args: {args}")
+
+    shell, hist_path, max_suggestions = args.s, args.f, args.n
 
     sorted_commands, used_aliases = get_all_commands(hist_path, shell)
 
@@ -255,8 +257,4 @@ def generate_easy_alias(cmd: str, used_easy_aliases: Set[str]) -> str:
 
 
 if __name__ == "__main__":
-    args = parse_args()
-    init_logger(args)
-    debug(f"args: {args}")
-
-    main(args)
+    main()

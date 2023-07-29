@@ -3,9 +3,9 @@ import os
 from argparse import RawTextHelpFormatter
 from pathlib import Path
 
-from constants import DEFAULT_SHELL, SUPPORTED_SHELLS
-from file_utils import find_file
-from logger import debug
+from .constants import DEFAULT_SHELL, SUPPORTED_SHELLS
+from .file_utils import find_file
+from .logger import debug
 
 app_desc = """
 This script will create bash/zsh/fish shell aliases automatically. You can 
@@ -19,15 +19,15 @@ used. For now, this script only generates aliases for the first word in a
 command. NOTE: Two character commands or less are not processed.\n
 By default, fish shell generates abbr (abbreviations) rather than aliases.\n
 Full Help Menu:\n
-python aliaser.py -h
+aliaser -h
 Example usage with top 40 aliases:\n
-python aliaser.py -n 40\n
+aliaser -n 40\n
 With stdout and min_alias:\n
-python aliaser.py --stdout --use_min_alias
+aliaser --stdout --use_min_alias
 Generate for fish shell:\n
-python aliaser.py -s fish
+aliaser -s fish
 Generate for zsh with custom history file path:\n
-python aliaser.py -s zsh -f ./.custom_zsh_history
+aliaser -s zsh -f ./.custom_zsh_history
 """
 
 
