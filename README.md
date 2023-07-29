@@ -4,7 +4,7 @@ Shell aliases are shortcuts or abbreviations for commands that are used in a Uni
 
 This script will create bash/zsh/fish shell aliases automatically. You can generate a new alias file by following the prompts, or use the `--stdout` option to print results directly in your terminal.
 
-Two types of aliases are suggested, the default algorithm matches all characters incrementally for each command, while the `--use_min_alias`algorithm aims to minimize the total length of characters per command. 
+Two types of aliases are suggested, the default algorithm matches all characters incrementally for each command, while the `--use_min_alias` algorithm aims to minimize the total length of characters per command. 
 Additionally, `--use_min_alias` does not necessarily match all characters in the command. 
 
 The freq (frequency) column shows how often each command was used. For now, this script only generates aliases for the first word in a command. 

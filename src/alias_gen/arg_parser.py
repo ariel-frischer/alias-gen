@@ -3,9 +3,11 @@ import os
 from argparse import RawTextHelpFormatter
 from pathlib import Path
 
+import psutil
+
 from .constants import DEFAULT_SHELL, SUPPORTED_SHELLS
 from .file_utils import find_file
-from .logger import debug
+from .logger import debug, init_logger
 
 app_desc = """
 This script will create bash/zsh/fish shell aliases automatically. You can 
@@ -45,9 +47,9 @@ def parse_args():
         help="Enable debug output.",
     )
 
-    parser.add_argument(
-        "-n", type=int, default=30, help="Total number of suggestions default is 30"
-    )
+    parser.add_argument("-n", type=int, default=30, help="Total number of suggestions default is 30")
+    args = parser.parse_args()
+    init_logger(args)
     parser.add_argument(
         "-f",
         type=validate_file_exists,
@@ -61,9 +63,7 @@ def parse_args():
         help=f"Shell to make aliases for. Supported shells are: {SUPPORTED_SHELLS}.",
     )
     parser.add_argument("--stdout", action="store_true", help="Write output to stdout")
-    parser.add_argument(
-        "--use_min_alias", action="store_true", help="Will use the min_alias list."
-    )
+    parser.add_argument("--use_min_alias", action="store_true", help="Will use the min_alias list.")
     args = parser.parse_args()
     return args
 
@@ -79,23 +79,33 @@ def validate_file_exists(file_path: str) -> Path:
 
 def validate_shell_args(shell: str) -> str:
     if not shell:
-        shell = get_shell()
+        shell = detect_shell()
         if shell not in SUPPORTED_SHELLS:
-            print(
-                f"This shell: {shell} is not supported, falling back to zsh as default."
-            )
+            print(f"This shell: {shell} is not supported, falling back to zsh as default.")
             return DEFAULT_SHELL
     if shell not in SUPPORTED_SHELLS:
         raise argparse.ArgumentTypeError(
-            f"Given shell: {shell} is not supported. \n\
-        Supported shells are: {SUPPORTED_SHELLS}."
+            f"Given shell: {shell} is not supported.\nSupported shells are: {SUPPORTED_SHELLS}."
         )
     return shell
 
 
-def get_shell():
-    shell_path = os.environ.get("SHELL", "")
-    debug(f"shell_path: {shell_path}")
-    shell = shell_path.split("/")[-1]
-    debug(f"shell: {shell}")
+def detect_shell_from_pid():
+    pid = os.getpid()
+    parent = psutil.Process(pid).parent()
+    while parent is not None:
+        if parent.name() in SUPPORTED_SHELLS:
+            return parent.name()
+        parent = parent.parent()
+    return "unknown"
+
+
+def detect_shell():
+    shell = detect_shell_from_pid()
+    debug(f"Detected shell from pid: {shell}")
+
+    if shell not in SUPPORTED_SHELLS:
+        shell_path = os.environ.get("SHELL", "")
+        debug(f"shell_path: {shell_path}")
+        shell = shell_path.split("/")[-1]
     return shell

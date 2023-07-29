@@ -14,9 +14,7 @@ setup(
     url="https://gitlab.com/ariel-frischer/alias-gen",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    install_requires=[
-        "chardet",  # Add chardet as a requirement
-    ],
+    install_requires=["chardet", "psutil"],
     entry_points={
         "console_scripts": [
             "aliaser = alias_gen.aliaser:main",

@@ -5,7 +5,6 @@ Date created: 2022-01-01
 Description: Generate aliases for your shell.
 """
 
-import argparse
 import itertools
 import os
 import re
@@ -27,7 +26,6 @@ cmd_gets_cmds = "printf '%s\n' ${PATH//:/\/* } | xargs -n 1 basename"
 
 def main():
     args = parse_args()
-    init_logger(args)
     debug(f"args: {args}")
 
     shell, hist_path, max_suggestions = args.s, args.f, args.n
@@ -110,25 +108,20 @@ def get_all_commands(hist_path: Path, shell: str):
 
 def get_history_commands(shell: str, hist_path: Path) -> List[str]:
     history_commands = []
-    history_path = (
-        hist_path if os.path.isfile(hist_path) else get_history_file_path(shell)
-    )
+    history_path = hist_path if os.path.isfile(hist_path) else get_history_file_path(shell)
+
     if history_path:
         history = get_file_contents(history_path)
         history_commands = extract_commands(history, shell)
     return history_commands
 
 
-def gen_aliases(
-    max_suggestions: int, sorted_commands: List[Tuple[str, int]], used_aliases: Set[str]
-):
+def gen_aliases(max_suggestions: int, sorted_commands: List[Tuple[str, int]], used_aliases: Set[str]):
     used_easy_aliases = used_aliases.copy()
     results = []
     for cmd, freq in sorted_commands[:max_suggestions]:
         cmd_words = cmd.split()
-        alias, minimal_alias = generate_alias(
-            cmd_words[0], used_aliases, used_easy_aliases
-        )
+        alias, minimal_alias = generate_alias(cmd_words[0], used_aliases, used_easy_aliases)
         used_aliases.add(alias)
         used_easy_aliases.add(minimal_alias)
         results.append((cmd, freq, alias, minimal_alias))
@@ -143,19 +136,34 @@ def show_alias_chart(results: List[Tuple[str, int, str, str]]):
         f_cmd = cmd[:15] if len(cmd) <= 15 else (cmd[:15] + "...")
         print(f"{f_cmd:<20}{freq:<10}{alias:<10}{minimal_alias:<10}")
 
-
 def extract_commands(file_contents: str, shell: str) -> List[str]:
     commands = []
-    regex = r"- cmd: (.*)" if shell == "fish" else r"(.*)$"
+    if shell == "fish":
+        regex = r"- cmd: (.*)"
+    else:  # Assume zsh
+        regex = r": \d+:\d+;(.*)"
     for line in file_contents.split("\n"):
         match = re.search(regex, line)
         if match:
-            first_word = match.group(1).split(" ", 1)[0]
-            if len(first_word) > 2:
-                commands.append(first_word)
+            command = match.group(1).strip()
+            if command:
+                first_word = command.split(" ", 1)[0]
+                if len(first_word) > 2:
+                    commands.append(first_word)
     return commands
 
-
+# def extract_commands(file_contents: str, shell: str) -> List[str]:
+#     commands = []
+#     regex = r"- cmd: (.*)" if shell == "fish" else r"(.*)$"
+#     for line in file_contents.split("\n"):
+#         match = re.search(regex, line)
+#         if match:
+#             first_word = match.group(1).split(" ", 1)[0]
+#             if len(first_word) > 2:
+#                 commands.append(first_word)
+#     return commands
+#
+#
 def get_command_frequencies(commands: List[str]) -> Dict[str, int]:
     frequency: Dict[str, int] = {}
     for cmd in commands:
@@ -175,9 +183,7 @@ def get_bash_commands(shell: str) -> Set[str]:
     command = compgen_command
 
     debug(f"Running bash command: {command}")
-    output = (
-        subprocess.run(command, shell=True, capture_output=True).stdout.decode().strip()
-    )
+    output = subprocess.run(command, shell=True, capture_output=True).stdout.decode().strip()
     # debug(f"Output: {output}")
     commands = set(output.split("\n"))
 
@@ -200,9 +206,7 @@ def get_shell_commands(shell: str) -> Set[str]:
         debug(f"Unsupported shell: {shell}")
 
     debug(f"Running shell command: {command}")
-    output = (
-        subprocess.run(command, shell=True, capture_output=True).stdout.decode().strip()
-    )
+    output = subprocess.run(command, shell=True, capture_output=True).stdout.decode().strip()
 
     if shell == "fish":
         # Strip out all lines that contain these patterns
