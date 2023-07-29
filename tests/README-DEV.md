@@ -3,19 +3,29 @@
 ## To update the version:
 Need to manually update version in setup.py AND pyproject.toml
 
+## Install
+```bash
+poetry install
+```
+
 ## Create a new build
 ```bash
-python setup.py sdist bdist_wheel
+poetry build
 ```
 
 ## Check the distribution is valid
 ```bash
-twine check dist/*python -m twine upload dist/* --skip-existingpython setup.py sdist bdist_wheel
+twine check dist/*
 ```
 
-## Create a new build
+## Upload test PYPI package
 ```bash
-python -m twine upload dist/* --skip-existingpython setup.py sdist bdist_wheel
+twine upload -r testpypi dist/*
 ```
 
+## Upload actual PYPI package
+```bash
+twine upload dist/*
+```
 
+https://test.pypi.org/project/alias-gen/

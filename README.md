@@ -17,50 +17,40 @@ By default, fish shell generates abbr (abbreviations) rather than aliases.
 - Python 3.6 or higher.
 - No dependences required for installation.
 
-## Getting Started
-
-Clone this repo:
-
+## Install from pypi
+```bash
+pip install alias-gen
 ```
-git clone <https://this-repo-url>
-```
+https://pypi.org/project/alias-gen/0.4.0/
 
-CD into the python source directory:
-
-```
-cd src/alias_gen
-```
-
-## Running the script
-
+## CLI Usage
 Full Help Menu:
-
 ```
-python aliaser.py -h
+aliaser -h
 ```
 
 Example usage to generate the top 40 aliases:
 
 ```
-python aliaser.py -n 40
+aliaser -n 40
 ```
 
 With stdout and min_alias:
 
 ```
-python aliaser.py --stdout --use_min_alias
+aliaser --stdout --use_min_alias
 ```
 
 The `-s` argument specifies the shell type. In this example, `fish` shell is used.
 
 ```
-python aliaser.py -s fish
+aliaser -s fish
 ```
 
 The `-f` argument allows you to specify a custom history file path.
 
 ```
-python aliaser.py -s zsh -f ~/.custom_zsh_history
+aliaser -s zsh -f ~/.custom_zsh_history
 ```
 
 ## How does it work?
