@@ -29,7 +29,9 @@ def main():
     debug(f"args: {args}")
 
     shell, hist_path, max_suggestions = args.s, args.f, args.n
-    print(f"Detected shell: {shell}")
+
+    if not args.stdout:
+        print(f"Detected shell: {shell}")
 
     sorted_commands, used_aliases = get_all_commands(hist_path, shell)
 
@@ -136,6 +138,7 @@ def show_alias_chart(results: List[Tuple[str, int, str, str]]):
         f_cmd = cmd[:15] if len(cmd) <= 15 else (cmd[:15] + "...")
         print(f"{f_cmd:<20}{freq:<10}{alias:<10}{minimal_alias:<10}")
 
+
 def extract_commands(file_contents: str, shell: str) -> List[str]:
     commands = []
     if shell == "fish":
@@ -151,6 +154,7 @@ def extract_commands(file_contents: str, shell: str) -> List[str]:
                 if len(first_word) > 2:
                     commands.append(first_word)
     return commands
+
 
 # def extract_commands(file_contents: str, shell: str) -> List[str]:
 #     commands = []

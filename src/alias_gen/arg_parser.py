@@ -48,8 +48,6 @@ def parse_args():
     )
 
     parser.add_argument("-n", type=int, default=30, help="Total number of suggestions default is 30")
-    args = parser.parse_args()
-    init_logger(args)
     parser.add_argument(
         "-f",
         type=validate_file_exists,
@@ -65,6 +63,7 @@ def parse_args():
     parser.add_argument("--stdout", action="store_true", help="Write output to stdout")
     parser.add_argument("--use_min_alias", action="store_true", help="Will use the min_alias list.")
     args = parser.parse_args()
+    init_logger(args)
     return args
 
 
