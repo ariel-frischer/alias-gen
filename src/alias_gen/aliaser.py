@@ -31,6 +31,7 @@ def main():
     debug(f"args: {args}")
 
     shell, hist_path, max_suggestions = args.s, args.f, args.n
+    print(f"Detected shell: {shell}")
 
     sorted_commands, used_aliases = get_all_commands(hist_path, shell)
 
