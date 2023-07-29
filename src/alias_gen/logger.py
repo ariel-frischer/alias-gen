@@ -12,7 +12,3 @@ def init_logger(args: argparse.Namespace):
 
 log = logging.getLogger("main")
 debug = log.debug
-
-# def debug():
-#     log = logging.getLogger("main")
-#     return log.debug
