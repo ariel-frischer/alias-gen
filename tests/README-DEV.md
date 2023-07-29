@@ -1,12 +1,15 @@
 # Developer Guide
 
-## To update the version:
-Need to manually update version in setup.py AND pyproject.toml
-
 ## Install
 ```bash
 poetry install
 ```
+
+## To update the version:
+```bash
+bumpversion minor version.py --current-version 0.5.0
+```
+Need to manually update version in pyproject.toml as well.
 
 ## Create a new build
 ```bash
@@ -28,4 +31,7 @@ twine upload -r testpypi dist/*
 twine upload dist/*
 ```
 
+## References
+
+https://pypi.org/project/alias-gen/
 https://test.pypi.org/project/alias-gen/
