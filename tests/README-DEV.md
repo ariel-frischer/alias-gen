@@ -31,8 +31,9 @@ twine upload -r testpypi dist/*
 twine upload dist/*
 ```
 
-## Composite Build + Upload
+## Composite Bump + Build + Upload
 ```bash
+python bump_version.py patch setup.py pyproject.toml
 rm -i -rf dist && poetry build && twine upload dist/*
 ```
 

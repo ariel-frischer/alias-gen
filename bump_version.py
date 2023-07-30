@@ -23,15 +23,17 @@ def write_version(filename, version):
 
 def bump_version(version, bump_type):
     version_parts = version.split(".")
-    if bump_type == "minor":
-        version_parts[1] = str(int(version_parts[1]) + 1)
-        version_parts[2] = "0"
-    elif bump_type == "major":
+    if bump_type == "major":
         version_parts[0] = str(int(version_parts[0]) + 1)
         version_parts[1] = "0"
         version_parts[2] = "0"
+    elif bump_type == "minor":
+        version_parts[1] = str(int(version_parts[1]) + 1)
+        version_parts[2] = "0"
+    elif bump_type == "patch":
+        version_parts[2] = str(int(version_parts[2]) + 1)
     else:
-        raise ValueError("Invalid bump type. Use 'minor' or 'major'")
+        raise ValueError("Invalid bump type. Use 'major', 'minor', or 'patch'")
 
     return ".".join(version_parts)
 
