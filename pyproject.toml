@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name="alias-gen"
-version="0.6.4"
+version="0.6.5"
 authors=[{name="Ariel Frischer", email="arielfrischer@gmail.com"}]
 description="Generate bash/zsh/fish shell aliases automatically."
 requires-python=">=3.6"
@@ -32,7 +32,7 @@ keywords=[
 [tool.poetry]
 name = "alias-gen"
 license = "MIT"
-version = "0.6.4"
+version = "0.6.5"
 description = "Generate bash/zsh/fish shell aliases automatically."
 authors=["Ariel Frischer <arielfrischer@gmail.com>"]
 maintainers=["Ariel Frischer <arielfrischer@gmail.com>"]

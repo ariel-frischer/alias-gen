@@ -23,7 +23,7 @@ By default, fish shell generates abbr (abbreviations) rather than aliases.
 ```bash
 pip install alias-gen
 ```
-https://pypi.org/project/alias-gen/0.4.0/
+https://pypi.org/project/alias-gen/
 
 ## CLI Usage
 Full Help Menu:
