@@ -31,10 +31,15 @@ twine upload -r testpypi dist/*
 twine upload dist/*
 ```
 
-## Composite Bump + Build + Upload
+## Bump version custom script usage
 ```bash
 python bump_version.py patch setup.py pyproject.toml
-rm -i -rf dist && poetry build && twine upload dist/*
+```
+Bump version parts are stucture as: major.minor.patch -> 0.6.2
+
+## Composite Bump + Build + Upload
+```bash
+python bump_version.py patch setup.py pyproject.toml && rm -i -rf dist && poetry build && twine upload dist/*
 ```
 
 ## References
