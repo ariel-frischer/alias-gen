@@ -75,7 +75,7 @@ your alias or abbreviation. One example for fish shell is [fish-abbreviation-tip
 
 ## Buy me a coffee
 
-If you found this project helpful, consider buying me a coffee to show your support. Every bit helps to continue maintaining and improving this project.
+Hope you found this project helpful, consider buying a coffee to show your support.
 
 <a href="https://www.buymeacoffee.com/arielfrischer" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
