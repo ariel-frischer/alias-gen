@@ -31,6 +31,11 @@ twine upload -r testpypi dist/*
 twine upload dist/*
 ```
 
+## Test
+```bash
+pytest .
+```
+
 ## Bump version custom script usage
 ```bash
 python bump_version.py patch setup.py pyproject.toml

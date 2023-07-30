@@ -44,16 +44,10 @@ def get_file_contents(file_path: Path) -> str:
         try:
             with open(file_path, "r", encoding=encoding) as f:
                 file_contents = f.read()
-            debug(
-                f"Succesfully read file contents of path: {file_path} "
-                f"with encoding: {encoding}."
-            )
+            debug(f"Succesfully read file contents of path: {file_path} " f"with encoding: {encoding}.")
             return file_contents
         except UnicodeDecodeError:
-            debug(
-                f"Failed to read file contents of path: {file_path} "
-                f"with encoding: {encoding}."
-            )
+            debug(f"Failed to read file contents of path: {file_path} " f"with encoding: {encoding}.")
 
     return ""
 

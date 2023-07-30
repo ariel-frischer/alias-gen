@@ -156,18 +156,6 @@ def extract_commands(file_contents: str, shell: str) -> List[str]:
     return commands
 
 
-# def extract_commands(file_contents: str, shell: str) -> List[str]:
-#     commands = []
-#     regex = r"- cmd: (.*)" if shell == "fish" else r"(.*)$"
-#     for line in file_contents.split("\n"):
-#         match = re.search(regex, line)
-#         if match:
-#             first_word = match.group(1).split(" ", 1)[0]
-#             if len(first_word) > 2:
-#                 commands.append(first_word)
-#     return commands
-#
-#
 def get_command_frequencies(commands: List[str]) -> Dict[str, int]:
     frequency: Dict[str, int] = {}
     for cmd in commands:
@@ -179,6 +167,7 @@ def get_command_frequencies(commands: List[str]) -> Dict[str, int]:
 def get_all_system_commands(commands_txt: str) -> Set[str]:
     commands = commands_txt.split("\n")
     commands = [cmd.split("\t")[0] for cmd in commands]
+    commands = [c for c in commands if c.strip()]
     return set(commands)
 
 

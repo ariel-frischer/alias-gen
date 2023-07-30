@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="alias-gen",
-    version="0.6.6",
+    version="0.6.7",
     author="Ariel Frischer",
     author_email="arielfrischer@gmail.com",
     description="Generate bash, zsh, or fish shell aliases automatically.",
