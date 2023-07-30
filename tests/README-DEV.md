@@ -31,6 +31,11 @@ twine upload -r testpypi dist/*
 twine upload dist/*
 ```
 
+## Composite Build + Upload
+```bash
+rm -i -rf dist && poetry build && twine upload dist/*
+```
+
 ## References
 
 https://pypi.org/project/alias-gen/
