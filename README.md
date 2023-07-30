@@ -1,4 +1,6 @@
-# ALIAS-GEN
+# ALIAS-GEN 𑗊
+
+![Alt text](assets/screenshot.png)
 
 Shell aliases are shortcuts or abbreviations for commands that are used in a Unix/Linux shell. They can save you time if you have very long or complex commands that you frequently use. ALIAS-GEN is a script that will create bash/zsh/fish shell aliases automatically to simplify your command-line tasks.
 
