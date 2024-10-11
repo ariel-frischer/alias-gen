@@ -10,14 +10,14 @@ from .file_utils import find_file
 from .logger import debug, init_logger
 
 app_desc = """
-This script will create bash/zsh/fish shell aliases automatically. You can 
+This script will create bash/zsh/fish shell aliases automatically. You can
 generate a new alias file by following the prompts, or use --stdout to
 print results directly in your terminal.
-Two types of aliases are suggested, the default alias matches 
-all characters in the command while min_alias aims to minimize the length of 
-characters. Additionally, min_alias does not necessarily match all characters 
-in the command. The freq (frequency) column shows how often this command was 
-used. For now, this script only generates aliases for the first word in a 
+Two types of aliases are suggested, the default alias matches
+all characters in the command while min_alias aims to minimize the length of
+characters. Additionally, min_alias does not necessarily match all characters
+in the command. The freq (frequency) column shows how often this command was
+used. For now, this script only generates aliases for the first word in a
 command. NOTE: Two character commands or less are not processed.\n
 By default, fish shell generates abbr (abbreviations) rather than aliases.\n
 Full Help Menu:\n
