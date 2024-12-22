@@ -31,9 +31,46 @@ twine upload -r testpypi dist/*
 twine upload dist/*
 ```
 
-## Test
+## Testing Locally
+
+### Running Tests
 ```bash
+# Install development dependencies first
+poetry install
+
+# Run all tests
 pytest .
+
+# Run specific test file
+pytest tests/test_aliaser.py
+
+# Run tests with verbose output
+pytest -v .
+
+# Run tests with coverage report
+pytest --cov=alias_gen tests/
+```
+
+### Running the Built Package Locally
+After building the package with `poetry build`, you can:
+
+1. Install and run from the wheel file:
+```bash
+# Install the wheel file
+pip install dist/*.whl
+
+# Run the installed executable
+aliaser --help
+```
+
+2. Or run directly through poetry:
+```bash
+# Run the package through poetry
+poetry run aliaser --help
+
+# Or activate the poetry shell first
+poetry shell
+aliaser --help  # Run commands in the poetry environment
 ```
 
 ## Bump version custom script usage
