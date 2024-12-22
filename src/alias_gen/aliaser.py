@@ -35,13 +35,23 @@ def main():
 
     sorted_commands, used_aliases = get_all_commands(hist_path, shell)
 
-    results = gen_aliases(max_suggestions, sorted_commands, used_aliases)
-
-    if args.stdout:
-        print_results(results, shell, not args.use_min_alias)
+    if args.tui:
+        from .tui import AliasGeneratorTUI
+        tui = AliasGeneratorTUI(sorted_commands[:max_suggestions], used_aliases)
+        results = tui.run()
+        if results:  # Only proceed if user didn't cancel
+            if args.stdout:
+                print_results(results, shell, not args.use_min_alias)
+            else:
+                show_alias_chart(results)
+                write_to_file_prompt(results, shell, args.use_min_alias)
     else:
-        show_alias_chart(results)
-        write_to_file_prompt(results, shell, args.use_min_alias)
+        results = gen_aliases(max_suggestions, sorted_commands, used_aliases)
+        if args.stdout:
+            print_results(results, shell, not args.use_min_alias)
+        else:
+            show_alias_chart(results)
+            write_to_file_prompt(results, shell, args.use_min_alias)
 
 
 def print_results(results: ResType, shell: str, use_alias: bool):

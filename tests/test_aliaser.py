@@ -1,7 +1,13 @@
+import pytest
 from alias_gen.aliaser import (extract_commands, generate_alias,
                                generate_easy_alias, get_all_system_commands,
                                get_command_frequencies, print_results,
                                write_results)
+
+
+@pytest.fixture
+def mock_tui(mocker):
+    return mocker.patch('alias_gen.tui.AliasGeneratorTUI')
 
 
 def test_generate_alias():
