@@ -8,6 +8,9 @@ version="0.6.7"
 authors=[{name="Ariel Frischer", email="arielfrischer@gmail.com"}]
 description="Generate bash/zsh/fish shell aliases automatically."
 requires-python=">=3.6"
+dependencies = [
+    "psutil>=5.9.0"
+]
 readme = "README.md"
 classifiers=[
     "Programming Language :: Python :: 3",
@@ -37,12 +40,12 @@ description = "Generate bash/zsh/fish shell aliases automatically."
 authors=["Ariel Frischer <arielfrischer@gmail.com>"]
 maintainers=["Ariel Frischer <arielfrischer@gmail.com>"]
 readme = "README.md"
-classifiers=[
+classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+    "Operating System :: OS Independent"
 ]
-keywords=[
+keywords = [
     "alias",
     "bash",
     "zsh",
@@ -54,8 +57,13 @@ keywords=[
     "completion",
     "abbr",
     "generate",
-    "terminal",
+    "terminal"
 ]
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+psutil = ">=5.9.0"
+chardet = ">=4.0.0"
 
 [tool.poetry.scripts]
 aliaser = "alias_gen.aliaser:main"
