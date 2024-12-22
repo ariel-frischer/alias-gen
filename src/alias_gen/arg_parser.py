@@ -62,6 +62,7 @@ def parse_args():
     )
     parser.add_argument("--stdout", action="store_true", help="Write output to stdout")
     parser.add_argument("--use_min_alias", action="store_true", help="Will use the min_alias list.")
+    parser.add_argument("--tui", action="store_true", help="Use text-based user interface for interactive alias selection")
     args = parser.parse_args()
     init_logger(args)
     return args
