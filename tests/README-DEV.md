@@ -1,3 +1,4 @@
+
 # Developer Guide
 
 ## Install
@@ -34,6 +35,30 @@ twine upload dist/*
 ## Test
 ```bash
 pytest .
+```
+
+## Local Testing
+To test changes locally without building and uploading:
+```bash
+poetry run pytest
+```
+
+To run specific test files or test cases:
+```bash
+poetry run pytest tests/test_aliaser.py
+poetry run pytest -k "test_function_name"
+```
+
+## Run the built poetry executable
+After building with `poetry build`, you can test the installed package locally:
+```bash
+# Install the built package in a virtual environment
+python -m venv testenv
+source testenv/bin/activate
+pip install dist/*.whl
+
+# Run the installed package
+alias-gen --help
 ```
 
 ## Bump version custom script usage
